@@ -20,6 +20,7 @@ object List { // `List` companion object. Contains functions for creating and wo
   }
 
   def apply[A](as: A*): List[A] = // Variadic function syntax
+
     if (as.isEmpty) Nil
     else Cons(as.head, apply(as.tail: _*))
 
@@ -31,7 +32,6 @@ object List { // `List` companion object. Contains functions for creating and wo
     case _ => 101
   }
 
-  println(x)
 
   def append[A](a1: List[A], a2: List[A]): List[A] =
     a1 match {
@@ -52,11 +52,25 @@ object List { // `List` companion object. Contains functions for creating and wo
     foldRight(ns, 1.0)(_ * _) // `_ * _` is more concise notation for `(x,y) => x * y`; see sidebar
 
 
-  def tail[A](l: List[A]): List[A] = sys.error("todo")
+  def tail[A](l: List[A]): List[A] = l match {
 
-  def setHead[A](l: List[A], h: A): List[A] = sys.error("todo")
+    case Nil => sys.error("tail of empty list")
+    case Cons(_, t) => t
+  }
 
-  def drop[A](l: List[A], n: Int): List[A] = sys.error("todo")
+  def setHead[A](l: List[A], h: A): List[A] = l match {
+
+    case Nil => Cons(h, Nil)
+    case Cons(_, t) => Cons(h, t)
+  }
+
+  def drop[A](l: List[A], n: Int): List[A] = (l, n) match {
+
+    case (Cons(_, xs), 1) => xs
+    case (Cons(_, xs), n) => drop(xs, n - 1)
+    case (Nil, _) => Nil
+
+  }
 
   def dropWhile[A](l: List[A], f: A => Boolean): List[A] = sys.error("todo")
 

@@ -2,10 +2,22 @@ import sbt._
 import Keys._
 
 object FPInScalaBuild extends Build {
-  val opts = Project.defaultSettings ++ Seq(
-    scalaVersion := "2.11.4",
-    resolvers += "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/"
+
+
+  val dependencies = Seq(
+    "org.scalatest" % "scalatest_2.11" % "3.0.0-SNAP4",
+    "junit" % "junit" % "4.12"
   )
+
+  val opts = Project.defaultSettings ++ Seq(
+    name := "fpinscala" ,
+    version := "0.1",
+    scalaVersion := "2.11.4",
+    scalacOptions := Seq("-deprecation"),
+    resolvers += "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/" ,
+    libraryDependencies ++= dependencies
+  )
+
 
   lazy val root =
     Project(id = "fpinscala",
@@ -37,3 +49,4 @@ object FPInScalaBuild extends Build {
     }
   }
 }
+
