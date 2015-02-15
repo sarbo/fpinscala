@@ -24,7 +24,7 @@ class DataStructuresSuite extends FunSuite {
    }
 
 
-  test ("foldRight[Int, Double](List(1,2,3,4,5), 0)((x,y) =>  x + y ) === 15"){
+  test ("foldRight[Int, Double](List(1,2,3,4,5), 0)((x,y) =>  x * y ) === 120"){
     assert(foldRight[Int, Double](List(1,2,3,4,5), 1.0)((x,y) =>  x * y ) === 120)
   }
 
