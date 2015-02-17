@@ -10,22 +10,23 @@ class DataStructuresSuite extends FunSuite {
 
   import fpinscala.datastructures.List._
 
+  val intList = List(1,2,3,4,5)
+  val doubleList = List(1.0,2.0,3.0,4.0,5.0)
 
   test("sum(List(1, 2, 3, 4, 5)) === 15"){
-
-    assert(sum(List(1, 2, 3, 4, 5)) === 15)
+    assert(sum(intList) === 15)
   }
 
-  test("product(List(1,2,3,4,5)) === 120)")
-  { assert(product(List(1,2,3,4,5)) === 120)}
+  test("product(List(1,2,3,4,5)) === 120)") {
+    assert(product(doubleList) === 120)
+  }
 
-   test ("foldRight[Int, Int](List(1,2,3,4,5), 0)((x,y) =>  x + y ) === 15"){
-     assert(foldRight[Int, Int](List(1,2,3,4,5), 0)((x,y) =>  x + y ) === 15)
+  test ("foldRight[Int, Int](List(1,2,3,4,5), 0)((x,y) =>  x + y ) === 15"){
+     assert(foldRight[Int, Int](intList, 0)((x,y) =>  x + y ) === 15)
    }
 
-
-  test ("foldRight[Int, Double](List(1,2,3,4,5), 0)((x,y) =>  x * y ) === 120"){
-    assert(foldRight[Int, Double](List(1,2,3,4,5), 1.0)((x,y) =>  x * y ) === 120)
+  test ("foldRight[Int, Double](List(1,2,3,4,5), 1.0)((x,y) =>  x * y ) === 120"){
+    assert(foldRight[Int, Double](intList, 1.0)((x,y) =>  x * y ) === 120)
   }
 
 }

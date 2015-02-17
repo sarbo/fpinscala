@@ -18,13 +18,23 @@ object FPInScalaBuild extends Build {
     libraryDependencies ++= dependencies
   )
 
-
+  /****
   lazy val root =
     Project(id = "fpinscala",
             base = file("."),
             settings = opts ++ Seq(
               onLoadMessage ~= (_ + nio2check())
             )) aggregate (chapterCode, exercises, answers)
+    *****/
+
+  lazy val root = Project("fpinscala", file(".")) settings(
+    version       := "0.2",
+    scalaVersion  := "2.11.4",
+    scalacOptions := Seq("-deprecation"),
+    libraryDependencies ++= dependencies
+    )  aggregate (chapterCode, exercises, answers)
+
+
   lazy val chapterCode =
     Project(id = "chapter-code",
             base = file("chaptercode"),
