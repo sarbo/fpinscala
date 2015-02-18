@@ -5,7 +5,7 @@ object FPInScalaBuild extends Build {
 
 
   val dependencies = Seq(
-    "org.scalatest" % "scalatest_2.11" % "3.0.0-SNAP4",
+    "org.scalatest" % "scalatest_2.11" % "2.2.4",
     "junit" % "junit" % "4.12"
   )
 
