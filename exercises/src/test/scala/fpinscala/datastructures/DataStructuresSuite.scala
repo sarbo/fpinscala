@@ -29,4 +29,12 @@ class DataStructuresSuite extends FunSuite {
     assert(foldRight[Int, Double](intList, 1.0)((x,y) =>  x * y ) === 120)
   }
 
+  test("drop[Int](intList, 3) === List(1,2,3)"){
+    assert(drop[Int](intList, 3) === List(4,5))
+  }
+
+  test("dropWhile[Int](List(1,2,3,4,5), x => x < 3) === List(3,4,5)"){
+    assert(dropWhile[Int](intList, x => x < 3) === List(3,4,5))
+  }
+
 }
