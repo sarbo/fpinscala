@@ -37,4 +37,12 @@ class DataStructuresSuite extends FunSuite {
     assert(dropWhile[Int](intList, x => x < 3) === List(3,4,5))
   }
 
+  test("dropWhile2(intList) (x => x < 3) === List(3,4,5)"){
+    assert(dropWhile2(intList) (x => x < 3) === List(3,4,5))
+  }
+
+  test("assert(init[Int](intList) === List(1,2,3,4))"){
+    assert(init[Int](intList) === List(1,2,3,4))
+  }
+
 }

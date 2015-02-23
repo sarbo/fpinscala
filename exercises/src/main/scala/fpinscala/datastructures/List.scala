@@ -1,6 +1,7 @@
 package fpinscala.datastructures
 
 sealed trait List[+A] // `List` data type, parameterized on a type, `A`
+
 case object Nil extends List[Nothing] // A `List` data constructor representing the empty list
 case class Cons[+A](head: A, tail: List[A]) extends List[A] // Another data constructor, representing nonempty lists. Note that `tail` is another `List[A]`, which may be `Nil` or another `Cons`.
 
@@ -78,7 +79,20 @@ object List { // `List` companion object. Contains functions for creating and wo
     case  _ => l
   }
 
-  def init[A](l: List[A]): List[A] = sys.error("todo")
+
+  def dropWhile2[A](as: List[A])(f: A => Boolean): List[A] = as match {
+
+    case Cons(h,t) if f(h) => dropWhile2(t)(f)
+    case _ => as
+  }
+
+  def init[A](l: List[A]): List[A] = l match {
+
+      case Nil => Nil
+      case Cons(x,Nil) => Nil
+      case Cons(x, xs) =>  Cons(x:A, init[A](xs))
+  }
+
 
   def length[A](l: List[A]): Int = sys.error("todo")
 
