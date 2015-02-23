@@ -27,7 +27,16 @@ class ErrorHandlingSuite extends FunSuite {
   }
 
   test("mean(doubles).map[Double](x => x * x) === Some(9.0)") {
+
     val y: Option[Double] = mean(doubles).map[Double](x => x * x)
-   assert(y === Some(9.0) )
+    assert(y === Some(9.0) )
+  }
+
+  test("mean(doubles).getOrElse(None) === 3.0"){
+    assert(mean(doubles).getOrElse(None) === 3.0)
+  }
+
+  test("mean(Seq()).getOrElse(None) === None"){
+    assert(mean(Seq()).getOrElse(None) === None)
   }
 }
