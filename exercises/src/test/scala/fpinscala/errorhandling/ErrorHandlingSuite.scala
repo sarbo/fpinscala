@@ -4,8 +4,6 @@ import org.junit.runner.RunWith
 import org.scalatest._
 import org.scalatest.junit.JUnitRunner
 
-
-
 /**
  * Created by sea on 2/22/15.
  */
@@ -38,5 +36,10 @@ class ErrorHandlingSuite extends FunSuite {
 
   test("mean(Seq()).getOrElse(None) === None"){
     assert(mean(Seq()).getOrElse(None) === None)
+  }
+
+  test("mean(doubles).orElse(None) === 3.0"){
+    assert(mean(doubles).orElse(None) === Some(3.0))
+    assert(mean(Seq()).orElse(None) === None)
   }
 }
