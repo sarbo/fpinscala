@@ -12,7 +12,7 @@ object FPInScalaBuild extends Build {
   val opts = Project.defaultSettings ++ Seq(
     name := "fpinscala" ,
     version := "0.1",
-    scalaVersion := "2.11.4",
+    scalaVersion := "2.11.6",
     scalacOptions := Seq("-deprecation"),
     resolvers += "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/" ,
     libraryDependencies ++= dependencies

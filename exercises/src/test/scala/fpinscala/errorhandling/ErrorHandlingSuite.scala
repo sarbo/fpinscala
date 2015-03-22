@@ -45,5 +45,6 @@ class ErrorHandlingSuite extends FunSuite {
 
   test("variance of Seq(1.0, 2.0, 3.0, 4.0, 5.0)  is 2.0 "){
     assert(variance(doubles).getOrElse(None) === 2.0)
+    assert(variance(Seq()) === None)
   }
 }
