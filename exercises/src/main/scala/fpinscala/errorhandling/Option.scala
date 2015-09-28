@@ -15,7 +15,10 @@ sealed trait Option[+A] {
     case None => default
   }
 
-  def flatMap[B](f: A => Option[B]): Option[B] = map(f) getOrElse None
+  def flatMap[B](f: A => Option[B]): Option[B] = this match {
+    case Some(a) => f(a)
+    case None => None
+  }
 
   def orElse[B >: A](ob: => Option[B]): Option[B] =  this map (Some(_)) getOrElse ob
 
@@ -55,10 +58,9 @@ object Option {
 
   def variance(xs: Seq[Double]): Option[Double] = {
 
-    //val m = mean(xs) getOrElse 0.0
-    //mean(xs.map(x => math.pow(x - m,2)))
-    mean(xs) flatMap (m => mean(xs.map(x => math.pow(x - m, 2))))
-
+   //val m = mean(xs) getOrElse 0.0
+   // mean(xs.map(x => math.pow(x - m,2)))
+    mean(xs) flatMap(m => mean(xs.map(x => math.pow(x - m,2))))
   }
 
   def map2[A,B,C](a: Option[A], b: Option[B])(f: (A, B) => C): Option[C] = sys.error("todo")
