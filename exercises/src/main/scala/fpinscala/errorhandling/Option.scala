@@ -1,7 +1,9 @@
 package fpinscala.errorhandling
 
 
-import scala.{Option => _, Some => _, Either => _, _} // hide std library `Option`, `Some` and `Either`, since we are writing our own in this chapter
+import scala.{Option => _, Some => _, Either => _, _}
+
+// hide std library `Option`, `Some` and `Either`, since we are writing our own in this chapter
 
 sealed trait Option[+A] {
 
@@ -20,14 +22,19 @@ sealed trait Option[+A] {
     case None => None
   }
 
-  def orElse[B >: A](ob: => Option[B]): Option[B] =  this map (Some(_)) getOrElse ob
+  def orElse[B >: A](ob: => Option[B]): Option[B] = this map (Some(_)) getOrElse ob
 
   //this match {
   //case Some(a) => this
   //case None => ob
   //}
 
-  def filter(f: A => Boolean): Option[A] = sys.error("todo")
+
+  def filter(f: A => Boolean): Option[A] = this  match {
+    case Some(a) if f(a) => this
+    case _ => None
+  }
+
 }
 case class Some[+A](get: A) extends Option[A]
 case object None extends Option[Nothing]
