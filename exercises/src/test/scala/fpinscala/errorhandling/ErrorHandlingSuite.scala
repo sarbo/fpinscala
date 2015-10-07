@@ -16,12 +16,6 @@ class ErrorHandlingSuite extends FunSuite {
   val doubles = Seq(1.0, 2.0, 3.0, 4.0, 5.0)
   val empty_doubles = Seq()
 
- // var filt  = (doubles  filter { x => x > 3.0 })
-
-  test("doubles  filter { x => x > 3.0 } === List(4.0, 5.0)"){
-    assert((doubles  filter { x => x > 3.0 }) === List(4.0, 5.0))
-  }
-
   test("mean(Seq(1.0, 2.0, 3.0, 4.0,5.0)) === Some(3.0)"){
     assert(mean(Seq(1.0, 2.0, 3.0, 4.0,5.0)) === Some(3.0))
   }
@@ -55,5 +49,9 @@ class ErrorHandlingSuite extends FunSuite {
 
   test("variance of Seq()  is None"){
     assert(variance(empty_doubles).getOrElse(None) === None)
+  }
+
+  test("filter(_ > 3.0) === List(4.0, 5.0)"){
+    assert((doubles  filter(_ > 3.0)) === List(4.0, 5.0))
   }
 }
