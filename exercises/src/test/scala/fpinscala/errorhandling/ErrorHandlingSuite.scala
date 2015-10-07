@@ -14,7 +14,13 @@ class ErrorHandlingSuite extends FunSuite {
   import fpinscala.errorhandling.Option._
 
   val doubles = Seq(1.0, 2.0, 3.0, 4.0, 5.0)
+  val empty_doubles = Seq()
 
+ // var filt  = (doubles  filter { x => x > 3.0 })
+
+  test("doubles  filter { x => x > 3.0 } === List(4.0, 5.0)"){
+    assert((doubles  filter { x => x > 3.0 }) === List(4.0, 5.0))
+  }
 
   test("mean(Seq(1.0, 2.0, 3.0, 4.0,5.0)) === Some(3.0)"){
     assert(mean(Seq(1.0, 2.0, 3.0, 4.0,5.0)) === Some(3.0))
@@ -46,5 +52,9 @@ class ErrorHandlingSuite extends FunSuite {
   test("variance of Seq(1.0, 2.0, 3.0, 4.0, 5.0)  is 2.0 "){
     assert(variance(doubles).getOrElse(None) === 2.0)
     assert(variance(Seq()) === None)
+  }
+
+  test("variance of Seq()  is None"){
+    assert(variance(empty_doubles).getOrElse(None) === None)
   }
 }
