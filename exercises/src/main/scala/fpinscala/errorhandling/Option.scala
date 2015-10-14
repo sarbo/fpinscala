@@ -39,7 +39,7 @@ sealed trait Option[+A] {
 case class Some[+A](get: A) extends Option[A]
 case object None extends Option[Nothing]
 
-object Option {
+object Option{
 
   def failingFn(i: Int): Int = {
     val y: Int = throw new Exception("fail!") // `val y: Int = ...` declares `y` as having type `Int`, and sets it equal to the right hand side of the `=`.
@@ -59,6 +59,7 @@ object Option {
   }
 
   def mean(xs: Seq[Double]): Option[Double] =
+
     if (xs.isEmpty) None
     else Some(xs.sum / xs.length)
 
