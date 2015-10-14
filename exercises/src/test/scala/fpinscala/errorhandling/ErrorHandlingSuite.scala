@@ -52,7 +52,19 @@ class ErrorHandlingSuite extends FunSuite {
     assert(variance(empty_doubles).getOrElse(None) === None)
   }
 
-  test("filter(_ > 3.0) === List(4.0, 5.0)"){
+  test("Seq(1.0, 2.0, 3.0, 4.0, 5.0) filter(_ > 3.0) === List(4.0, 5.0)"){
     assert((doubles  filter(_ > 3.0)) === List(4.0, 5.0))
+  }
+
+  def sum(x: Int, y: Int) = { x + y}
+  val x = Some(2)
+  val y = Some(3)
+  test("map2(x:Option[Int],y:Option[Int])(sum) === Some(5)") {
+    assert(map2(x:Option[Int],y:Option[Int])(sum) === Some(5))
+  }
+
+  val v = None
+  test("map2(x:Option[Int],y:Option[Int])(sum) === None") {
+    assert(map2(x:Option[Int],v:Option[Int])(sum) === None)
   }
 }
