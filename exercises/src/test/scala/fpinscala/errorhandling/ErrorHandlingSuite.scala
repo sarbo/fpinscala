@@ -62,7 +62,6 @@ class ErrorHandlingSuite extends FunSuite {
     assert(map2(Some(2), Some(3))(sum) === Some(5))
   }
 
-
   test("map2(x:Option[Int],y:Option[Int])(sum) === None") {
     assert(map2(Some(2), None)(sum) === None)
   }
