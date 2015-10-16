@@ -70,13 +70,15 @@ object Option{
     mean(xs) flatMap(m => mean(xs.map(x => math.pow(x - m,2))))
   }
 
-  //def map2[A,B,C](a: Option[A], b: Option[B])(f: (A, B) => C): Option[C] = sys.error("todo")
+  def map2[A,B,C](a: Option[A], b: Option[B])(f: (A, B) => C): Option[C] = a flatMap (aa => b map (bb => f(aa, bb)))
+  /***
   def map2[A,B,C](a: Option[A], b: Option[B])(f: (A, B) => C): Option[C] = { (a,b) match {
 
     case (Some(a), Some(b)) => Some(f(a,b))
     case (_,_) => None
   }
 }
+***/
 
   def sequence[A](a: List[Option[A]]): Option[List[A]] = sys.error("todo")
 
