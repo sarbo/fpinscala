@@ -47,18 +47,6 @@ object Stream {
   def from(n: Int): Stream[Int] = sys.error("todo")
 
   def unfold[A, S](z: S)(f: S => Option[(A, S)]): Stream[A] = sys.error("todo")
-}
-
-
-object Main extends App {
-
-
-  val x = Stream(1, 2, 3, 4).foldRight(0) ((b,a) => b+a)
-
-  println("x = " + x)
-
-  println(Stream(1, 2, 3, 4).foldRight(0) _ )
-
 
 
 }
