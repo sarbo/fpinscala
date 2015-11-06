@@ -14,6 +14,10 @@ import org.scalatest.junit.JUnitRunner
 @RunWith(classOf[JUnitRunner])
 class LazinessSuite extends FunSuite {
 
+  test ("Stream(1,2,3) != Stream(1,2,3)") {
+    assert(Stream(1,2,3) == Stream(1,2,3) === false)
+  }
+
   test("Stream(1, 2, 3, 4).foldRight(0) ((x,y) => x + y)"){
     assert(Stream(1, 2, 3, 4).foldRight(0) ((x,y) => x + y) === 10)
   }
