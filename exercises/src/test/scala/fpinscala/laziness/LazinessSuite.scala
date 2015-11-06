@@ -22,7 +22,6 @@ class LazinessSuite extends FunSuite {
     assert(Stream(1, 2, 3, 4).foldRight(0) ((x,y) => x + y) === 10)
   }
 
-
   test ("Stream(1,2,3,4).exists(_ == 3"){
       assert(Stream(1, 2, 3, 4).exists( _ == 3) === true)
   }
@@ -31,10 +30,30 @@ class LazinessSuite extends FunSuite {
     assert(Stream(1, 2, 3, 4).exists( _ == 5) === false)
   }
 
+  test("Stream(1,2,3,4).toList") {
+    assert(Stream(1,2,3,4).toList === List(1,2,3,4))
+  }
+
+  test("Stream().toList") {
+    assert(Stream().toList === Nil)
+  }
+
   test ("Stream(1,2,3,4).take(2)"){
     assert(Stream(1, 2, 3, 4).take(2).exists( _ == 1) === true)
     assert(Stream(1, 2, 3, 4).take(2).exists( _ == 2) === true)
     assert(Stream(1, 2, 3, 4).take(2).exists( _ == 3) === false)
   }
 
+  test ("Stream(1,2,3,4).drop(2)"){
+    assert(Stream(1, 2, 3, 4).drop(1).exists( _ == 1) === false)
+    assert(Stream(1, 2, 3, 4).drop(2).exists( _ == 2) === false)
+    assert(Stream(1, 2, 3, 4).take(3).exists( _ == 3) === true)
+  }
+
+
+  test ("Stream(1,2,3,4).takeWhile( _ > 2)"){
+    assert(Stream(1,2,3,4).takeWhile(_ > 2).exists(_ == 3) === true)
+    assert(Stream(1,2,3,4).takeWhile(_ > 2).exists(_ == 4) === true)
+    println((Stream(1,2,3,4).takeWhile(_ == 2).toList))
+  }
 }

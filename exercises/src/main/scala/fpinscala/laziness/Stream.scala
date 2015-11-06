@@ -1,6 +1,8 @@
 package fpinscala.laziness
 
 import Stream._
+import scala.collection.immutable.List
+
 trait Stream[+A] {
 
   def foldRight[B](z: => B)(f: (A, => B) => B): B = // The arrow `=>` in front of the argument type `B` means that the function `f` takes its second argument by name and may choose not to evaluate it.
@@ -18,25 +20,35 @@ trait Stream[+A] {
     case Cons(h, t) => if (f(h())) Some(h()) else t().find(f)
   }
 
+  def toList: List[A] = this match {
+    case Cons(h,t) =>  h() :: t().toList
+    case _ => Nil
+  }
+
   def take(n: Int): Stream[A] = this match {
     case Cons(h, t) if n > 1 => cons(h(), t().take(n - 1))
     case Cons(h, _) if n == 1 => cons(h(), empty)
     case _ => empty
   }
 
-  def drop(n: Int): Stream[A] = sys.error("todo")
+  @annotation.tailrec
+  final def drop(n: Int): Stream[A] = this match {
+    case Cons(h, t) if n > 0  =>  t().drop(n - 1)
+    case _ => this
+  }
 
-  def takeWhile(p: A => Boolean): Stream[A] = sys.error("todo")
+  def takeWhile(p: A => Boolean): Stream[A] = this match {
+    case Cons (h, t) if exists(p) => cons(h(), t().takeWhile(p))
+    case _ => empty
+  }
 
   def forAll(p: A => Boolean): Boolean = sys.error("todo")
 
   def startsWith[B](s: Stream[B]): Boolean = sys.error("todo")
 }
 
-
 case object Empty extends Stream[Nothing]
 case class Cons[+A](h: () => A, t: () => Stream[A]) extends Stream[A]
-
 
 object Stream {
 
@@ -58,6 +70,5 @@ object Stream {
   def from(n: Int): Stream[Int] = sys.error("todo")
 
   def unfold[A, S](z: S)(f: S => Option[(A, S)]): Stream[A] = sys.error("todo")
-
 
 }
