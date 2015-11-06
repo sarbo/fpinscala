@@ -27,4 +27,10 @@ class LazinessSuite extends FunSuite {
     assert(Stream(1, 2, 3, 4).exists( _ == 5) === false)
   }
 
+  test ("Stream(1,2,3,4).take(2)"){
+    assert(Stream(1, 2, 3, 4).take(2).exists( _ == 1) === true)
+    assert(Stream(1, 2, 3, 4).take(2).exists( _ == 2) === true)
+    assert(Stream(1, 2, 3, 4).take(2).exists( _ == 3) === false)
+  }
+
 }
