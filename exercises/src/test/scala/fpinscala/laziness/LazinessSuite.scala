@@ -53,10 +53,10 @@ class LazinessSuite extends FunSuite {
 
 
   test ("Stream(1,2,3,4).takeWhile( _ > 2)"){
-    //assert(Stream(1,2,3,4).takeWhile(_ > 2).exists(_ == 3) === true)
-    //assert(Stream(1,2,3,4).takeWhile(_ > 2).exists(_ == 4) === true)
-    //assert(Stream(1,2,3,4).takeWhile(_ > 2).exists(_ == 2) === false)
-    //println(Stream(1,2,3,4).takeWhile(_ < 2).toList)
+    assert(Stream(1,2,3,4).takeWhile(_ > 2).exists(_ == 3) === true)
+    assert(Stream(1,2,3,4).takeWhile(_ > 2).exists(_ == 4) === true)
+    assert(Stream(1,2,3,4).takeWhile(_ > 2).exists(_ == 2) === false)
+    println(Stream(1,2,3,4).takeWhile(_ < 2).toList)
     println(Stream(1,2,3,4).takeWhile(_ > 2).toList)
   }
 }
