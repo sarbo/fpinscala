@@ -45,7 +45,7 @@ trait Stream[+A] {
 
   def takeWhile2(p: A => Boolean): Stream[A] =  this match {
 
-    case Cons(h, t) => if (foldRight(false)((a, b) => p(h()) || b) ) cons(h(),t().takeWhile(p)) else t().takeWhile(p)
+    case Cons(h, t) => if (foldRight(false)((a, b) => p(h()) || b) ) cons(h(),t().takeWhile(p)) else t().takeWhile2(p)
     case _ => empty
   }
 
