@@ -43,6 +43,12 @@ trait Stream[+A] {
     case _ => empty
   }
 
+  def takeWhile2(p: A => Boolean): Stream[A] =  this match {
+
+    case Cons(h, t) => if (foldRight(false)((a, b) => p(h()) || b) ) cons(h(),t().takeWhile(p)) else t().takeWhile(p)
+    case _ => empty
+  }
+
   def forAll(p: A => Boolean): Boolean = sys.error("todo")
 
   def startsWith[B](s: Stream[B]): Boolean = sys.error("todo")
