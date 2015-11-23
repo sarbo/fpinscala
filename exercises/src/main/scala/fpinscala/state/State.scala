@@ -30,7 +30,7 @@ object RNG {
       (f(a), rng2)
     }
 
-  def nonNegativeInt(rng: RNG): (Int, RNG) = ???
+  def nonNegativeInt(rng: RNG): (Int, RNG) = (Math.abs(rng.nextInt._1), rng.nextInt._2)
 
   def double(rng: RNG): (Double, RNG) = ???
 
