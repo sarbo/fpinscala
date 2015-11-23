@@ -13,7 +13,7 @@ import org.scalatest.junit.JUnitRunner
 @RunWith(classOf[JUnitRunner])
 class StateSuite extends FunSuite {
 
-  test("RNG.Simple(42)") {
+  test("nextInt: (Int, RNG)") {
 
     val rng = RNG.Simple(42)
 
@@ -37,7 +37,7 @@ class StateSuite extends FunSuite {
   }
 
 
-  test("nonNegativeInt"){
+  test("nonNegativeInt(rng: RNG): (Int, RNG)"){
 
     val rng = RNG.Simple(42)
 
@@ -46,13 +46,25 @@ class StateSuite extends FunSuite {
     println("n1 : " + n1)
 
     val (n2, rng2) = RNG.nonNegativeInt(rng1)
-    assert(n2 === 1281479697 )
+    assert(n2 === 1281479696)
     println("n2 : " + n2)
 
     val (n3, rng3) = RNG.nonNegativeInt(rng2)
-    assert(n3 === 340305902)
+    assert(n3 === 340305901)
     assert(rng2.toString === "Simple(197491923327988)")
     println("n3 : " + n3 + " rng2: " + rng2)
+  }
+
+  test("double(rng: RNG): (Double, RNG)"){
+
+    val rng = RNG.Simple(42)
+
+    val (d1, rng1) = RNG.double(rng)
+    assert(0 < d1 && d1 < 1)
+    println("d1 : " + d1)
+
+    val (d2, rng2) = RNG.double(rng1)
+    println("d2 : " + d2)
   }
 
 }
