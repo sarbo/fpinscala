@@ -84,12 +84,9 @@ class StateSuite extends FunSuite {
 
   test("map2(_.nextInt, double)((_1: Int, _2: Double) => (_1: Int, 2: Double))") {
 
-    val rng = Simple(42)
-
     val result = map2(_.nextInt, double)((_1: Int, _2: Double) => (_1: Int, 2: Double))
-
+    val rng = Simple(42)
     println("result: " + result.apply(result(rng)._2))
-    //println("result: " + result.apply(result(rng)._)
 
   }
 }
