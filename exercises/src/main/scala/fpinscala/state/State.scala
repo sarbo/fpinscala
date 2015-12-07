@@ -73,8 +73,33 @@ object RNG {
 
   def sequence[A](fs: List[Rand[A]]): Rand[List[A]] = ???
 
-  def flatMap[A,B](f: Rand[A])(g: A => Rand[B]): Rand[B] = ???
+  def flatMap[A,B](f: Rand[A])(g: A => Rand[B]): Rand[B] = rng => {
+    val (a, rnga) = f(rng)
+    g(a)(rnga)
+
+  }
+
+  def nonNegativeLessThan( n: Int): Rand[Int] = { rng =>
+    val (i, rng2) = nonNegativeInt(rng)
+    val mod = i % n
+    if (i + (n-1) - mod >= 0)
+      (mod, rng2)
+    else nonNegativeLessThan(n)(rng)
+  }
+/***
+  def _nonNegativeLessThan( n: Int): Rand[Int] = rng => {
+    flatMap(nonNegativeInt) ( g => (a: Int) => {
+      val mod = a % n
+      if (a + (n - 1) - mod >= 0)
+        (mod, rng)
+      else ???
+        flatMap(nonNegativeInt)(g)
+    }
+
+    )}
+  *******/
 }
+
 
 case class State[S,+A](run: S => (A, S)) {
   def map[B](f: A => B): State[S, B] =
