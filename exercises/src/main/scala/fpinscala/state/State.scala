@@ -1,5 +1,7 @@
 package fpinscala.state
 
+import scala.annotation.tailrec
+
 
 trait RNG {
   def nextInt: (Int, RNG) // Should generate a random `Int`. We'll later define other functions in terms of `nextInt`.
@@ -75,8 +77,9 @@ object RNG {
 
   def flatMap[A,B](f: Rand[A])(g: A => Rand[B]): Rand[B] = rng => {
     val (a, rnga) = f(rng)
-    g(a)(rnga)
-
+    val (b, rngb) = g(a)(rnga)
+    (b, rngb)
+   // g(a) (rnga)
   }
 
   def nonNegativeLessThan( n: Int): Rand[Int] = { rng =>
@@ -84,20 +87,29 @@ object RNG {
     val mod = i % n
     if (i + (n-1) - mod >= 0)
       (mod, rng2)
-    else nonNegativeLessThan(n)(rng)
+    else
+      nonNegativeLessThan(n)(rng2)
   }
-/***
-  def _nonNegativeLessThan( n: Int): Rand[Int] = rng => {
-    flatMap(nonNegativeInt) ( g => (a: Int) => {
-      val mod = a % n
-      if (a + (n - 1) - mod >= 0)
-        (mod, rng)
-      else ???
-        flatMap(nonNegativeInt)(g)
-    }
 
-    )}
-  *******/
+  def _nonNegativeLessThan(n: Int): Rand[Int] = rng => {
+
+    @tailrec
+    def g(i: Int):  Rand[Int] =  {
+
+      val (i, rng2:Rand[Int]) = nonNegativeInt(rng)
+      val  mod = i % n
+      if (i + (n - 1) - mod >= 0)
+        rng2
+      else
+       g(i)
+    }
+    //flatMap(nonNegativeInt)(g).apply(rng)
+    val r = flatMap(nonNegativeInt)(g)
+    r.apply(rng)
+  }
+
+
+
 }
 
 
