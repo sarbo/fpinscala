@@ -93,14 +93,12 @@ object RNG {
 
   def _nonNegativeLessThan(n: Int): Rand[Int] = rng => {
 
-    @tailrec
     def g(i: Int): Rand[Int] =  {
-
       val  mod = i % n
       if (i + (n - 1) - mod >= 0)
-        (mod, _)
+        unit(mod) //(mod, _)
       else
-       g(i)
+        _nonNegativeLessThan(n)
     }
     flatMap(nonNegativeInt)(g)(rng)
   }
