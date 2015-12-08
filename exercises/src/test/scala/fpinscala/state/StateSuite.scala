@@ -105,17 +105,18 @@ class StateSuite extends FunSuite {
 
   test(" _nonNegativeLessThan(n: Int): Rand[Int]") {
 
-    val r1  = _nonNegativeLessThan(42)
-    val r2 =  _nonNegativeLessThan(6)
-    val rng1 = Simple(42)
-    val rng2 = Simple(6)
-    println("result _r1: " + r1(rng1))
+    val r1 = _nonNegativeLessThan(6)
+    val r2 = _nonNegativeLessThan(6)
+    val r3 = _nonNegativeLessThan(6)
+    val r4 = _nonNegativeLessThan(6)
+    val rng1 = Simple(6)
+    val (j,rng2) =  r1(rng1)
+    val (k,rng3) =  r2(rng2)
+    val (l,rng4) =  r2(rng3)
+    println("result _r1 : " + r1(rng1))
     println("result _r2 : " + r2(rng2))
-    //for( a <- 1 to 10){
-      val r3 =  _nonNegativeLessThan(6)
-      val (j,rnext) =  r2(rng2)
-      println("result _r3 : " + r2(rnext))
-    //}
+    println("result _r3 : " + r3(rng3))
+    println("result _r4 : " + r4(rng4))
 
   }
 }
