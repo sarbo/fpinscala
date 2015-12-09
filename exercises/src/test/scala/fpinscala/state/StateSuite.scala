@@ -118,5 +118,10 @@ class StateSuite extends FunSuite {
     println("result _r3 : " + r3(rng3))
     println("result _r4 : " + r4(rng4))
 
+    //def rollDie: Rand[Int] = nonNegativeLessThan(6)
+    def rollDie: Rand[Int] = map(nonNegativeLessThan(6))(_ + 1)
+    val zero = rollDie(Simple(5))._1
+    //val zero = rollDie(1923744)
+    println("zero: " + zero)
   }
 }
