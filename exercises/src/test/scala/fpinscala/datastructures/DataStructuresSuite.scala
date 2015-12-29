@@ -45,4 +45,8 @@ class DataStructuresSuite extends FunSuite {
     assert(init[Int](intList) === List(1,2,3,4))
   }
 
+  test("map[Int,Int](intList)(x => x*x) === List(1,4,9,16, 25)"){
+    assert(map[Int,Int](intList)(x => x*x) === List(1,4,9,16, 25))
+  }
+
 }
