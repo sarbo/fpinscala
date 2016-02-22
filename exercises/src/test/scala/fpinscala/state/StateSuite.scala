@@ -124,4 +124,14 @@ class StateSuite extends FunSuite {
     //val zero = rollDie(1923744)
     println("zero: " + zero)
   }
+
+
+  test("ints(count: Int)(rng: RNG): (List[Int], RNG)") {
+
+    val r = Simple(100)
+    val (listInts, rng) = ints(10)(r)
+    println("listInts:" + listInts)
+    assert(listInts(0) === 38474890)
+    assert(listInts(1) === 419891633)
+  }
 }

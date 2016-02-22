@@ -45,11 +45,29 @@ object RNG {
     ((i1, d1), rng2)
   }
 
-  def doubleInt(rng: RNG): ((Double, Int), RNG) = ???
+  def doubleInt(rng: RNG): ((Double, Int), RNG) = {
+    val ((i, d), r) = intDouble(rng)
+    ((d, i), r)
+  }
 
-  def double3(rng: RNG): ((Double, Double, Double), RNG) = ???
+  def double3(rng: RNG): ((Double, Double, Double), RNG) = {
+    val (d1,rng1) = double(rng)
+    val (d2, rng2) = double(rng1)
+    val (d3, rng3) = double(rng2)
+    ((d1, d2, d3), rng3)
+  }
 
-  def ints(count: Int)(rng: RNG): (List[Int], RNG) = ???
+
+  def ints(count: Int)(rng: RNG): (List[Int], RNG) = {
+
+    if (count == 0)
+      (List(), rng)
+    else {
+      val (x, r1)  = rng.nextInt
+      val (xs, r2) = ints(count - 1)(r1)
+      (x :: xs, r2)
+    }
+  }
 
   def unit[A](a: A): Rand[A] =
     rng => (a, rng)
@@ -93,17 +111,17 @@ object RNG {
         nonNegativeLessThan(n)(rng2)
     }
   /*********
-  def _nonNegativeLessThan(n: Int): Rand[Int] = {
+    * def _nonNegativeLessThan(n: Int): Rand[Int] = {
 
-    def g(i: Int): Rand[Int] = {
-      val mod = i % n
-      if (i + (n - 1) - mod >= 0)
-        unit(mod) //(mod, _)
-      else
-        _nonNegativeLessThan(n)
-    }
-    flatMap(nonNegativeInt)(g)
-  }
+    * def g(i: Int): Rand[Int] = {
+    * val mod = i % n
+    * if (i + (n - 1) - mod >= 0)
+    * unit(mod) //(mod, _)
+    * else
+    * _nonNegativeLessThan(n)
+    * }
+    * flatMap(nonNegativeInt)(g)
+    * }
  **************/
 
 def _nonNegativeLessThan(n: Int): Rand[Int] = {
