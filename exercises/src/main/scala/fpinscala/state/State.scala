@@ -51,7 +51,7 @@ object RNG {
   }
 
   def double3(rng: RNG): ((Double, Double, Double), RNG) = {
-    val (d1,rng1) = double(rng)
+    val (d1, rng1) = double(rng)
     val (d2, rng2) = double(rng1)
     val (d3, rng3) = double(rng2)
     ((d1, d2, d3), rng3)
@@ -63,7 +63,7 @@ object RNG {
     if (count == 0)
       (List(), rng)
     else {
-      val (x, r1)  = rng.nextInt
+      val (x, r1) = rng.nextInt
       val (xs, r2) = ints(count - 1)(r1)
       (x :: xs, r2)
     }
@@ -110,9 +110,10 @@ object RNG {
       else
         nonNegativeLessThan(n)(rng2)
     }
-  /*********
-    * def _nonNegativeLessThan(n: Int): Rand[Int] = {
 
+  /** *******
+    * def _nonNegativeLessThan(n: Int): Rand[Int] = {
+    *
     * def g(i: Int): Rand[Int] = {
     * val mod = i % n
     * if (i + (n - 1) - mod >= 0)
@@ -122,32 +123,35 @@ object RNG {
     * }
     * flatMap(nonNegativeInt)(g)
     * }
- **************/
+    * *************/
 
-def _nonNegativeLessThan(n: Int): Rand[Int] = {
-  flatMap(nonNegativeInt) { i =>
-    val mod = i % n
-    if (i + (n-1) - mod >= 0)
-      unit(mod)
-    else
-      _nonNegativeLessThan(n)
+  def _nonNegativeLessThan(n: Int): Rand[Int] = {
+    flatMap(nonNegativeInt) { i =>
+      val mod = i % n
+      if (i + (n - 1) - mod >= 0)
+        unit(mod)
+      else
+        _nonNegativeLessThan(n)
+    }
   }
-}
-
-
 
 }
 
+import State._
 
 case class State[S, +A](run: S => (A, S)) {
-  def map[B](f: A => B): State[S, B] =
-    sys.error("todo")
 
-  def map2[B, C](sb: State[S, B])(f: (A, B) => C): State[S, C] =
-    sys.error("todo")
+  def map[B](f: A => B): State[S, B] = {
+    flatMap(a => unit(f(a)))
+  }
 
-  def flatMap[B](f: A => State[S, B]): State[S, B] =
-    sys.error("todo")
+  def map2[B,C](sb: State[S, B])(f: (A, B) => C): State[S, C] =
+    flatMap(a => sb.map(b => f(a, b)))
+
+  def flatMap[B](f: A => State[S, B]): State[S, B] = State(s => {
+    val (a, s1) = run(s)
+    f(a).run(s1)
+  })
 }
 
 sealed trait Input
@@ -159,6 +163,10 @@ case object Turn extends Input
 case class Machine(locked: Boolean, candies: Int, coins: Int)
 
 object State {
+
+  def unit[S, A](a: A): State[S, A] =
+    State(s => (a, s))
+
   type Rand[A] = State[RNG, A]
 
   def simulateMachine(inputs: List[Input]): State[Machine, (Int, Int)] = ???
