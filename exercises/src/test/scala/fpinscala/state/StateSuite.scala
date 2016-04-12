@@ -74,11 +74,11 @@ class StateSuite extends FunSuite {
 
     val rng = Simple(42)
 
-    val d1: Rand[Double] = _double(rng)
+    val d1: RNG.Rand[Double] = _double(rng)
     assert(0.0 < d1(rng)._1 && d1(rng)._1 < 1.0)
     println("d1: " + d1(rng))
 
-    val d2: Rand[Double] = _double(d1.apply(rng)._2)
+    val d2: RNG.Rand[Double] = _double(d1.apply(rng)._2)
     println("d2: " + d2(d1(rng)._2))
   }
 
@@ -92,7 +92,7 @@ class StateSuite extends FunSuite {
 
   test(" nonNegativeLessThan(n: Int): Rand[Int]") {
 
-    val r1:Rand[Int]  = nonNegativeLessThan(42)
+    val r1: RNG.Rand[Int]  = nonNegativeLessThan(42)
     val r2 =  nonNegativeLessThan(6)
     val rng1 = Simple(42)
     val rng2 = Simple(6)
@@ -119,7 +119,7 @@ class StateSuite extends FunSuite {
     println("result _r4 : " + r4(rng4))
 
     //def rollDie: Rand[Int] = nonNegativeLessThan(6)
-    def rollDie: Rand[Int] = map(nonNegativeLessThan(6))(_ + 1)
+    def rollDie: RNG.Rand[Int] = map(nonNegativeLessThan(6))(_ + 1)
     val zero = rollDie(Simple(5))._1
     //val zero = rollDie(1923744)
     println("zero: " + zero)
@@ -133,5 +133,19 @@ class StateSuite extends FunSuite {
     println("listInts:" + listInts)
     assert(listInts(0) === 38474890)
     assert(listInts(1) === 419891633)
+  }
+
+  test("State"){
+
+    val testState1 = State.unit[RNG, Int](42).run(Simple(42))
+    println("testState1: (" + testState1._1 + "," + testState1._2 + ")")
+
+    val testState2 = new State[RNG, Int](RNG => ( 42,Simple(42))).run(Simple(42))
+    println("testState2: (" + testState2._1 + "," + testState2._2 + ")")
+
+
+
+
+
   }
 }
