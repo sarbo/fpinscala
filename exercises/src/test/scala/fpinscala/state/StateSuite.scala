@@ -137,16 +137,30 @@ class StateSuite extends FunSuite {
 
   test("State"){
 
-    val testState1 = State.unit[RNG, Int](42).run(Simple(42))
+    val testState1  = State.unit(42).run(Simple(42))
     println("testState1: (" + testState1._1 + "," + testState1._2 + ")")
 
     val testState2 = new State[RNG, Int](RNG => ( 42,Simple(42))).run(Simple(42))
     println("testState2: (" + testState2._1 + "," + testState2._2 + ")")
 
-    val y = testState2._2.nextInt
+    val y = testState1._2.nextInt
     println("y: (" + y._1 + "," + y._2 +")")
 
+    val y1 = nonNegativeInt(testState1._2)
+    println("y1: (" + y1._1 + "," + y1._2 +")")
+
+    val  r = testState2._2.nextInt
+    println("r: (" + r._1 + "," + r._2 +")")
+  }
 
 
+  test (" Candy.simulateMachine(inputs: List[Input]): State[Machine, (Int, Int)]"){
+
+    val machine: Machine = new Machine(true, 10, 0)    //Machine(locked: Boolean, candies: Int, coins: Int)
+    val inputs: List[Input] = List(Coin, Turn)
+
+    val machineState: State[Machine, (Int, Int)] = Candy.simulateMachine(inputs)
+    val result = machineState.run(machine)
+    println("result: " + result)
   }
 }
