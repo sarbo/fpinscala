@@ -143,7 +143,8 @@ class StateSuite extends FunSuite {
     val testState2 = new State[RNG, Int](RNG => ( 42,Simple(42))).run(Simple(42))
     println("testState2: (" + testState2._1 + "," + testState2._2 + ")")
 
-
+    val y = testState2._2.nextInt
+    println("y: (" + y._1 + "," + y._2 +")")
 
 
 
