@@ -158,9 +158,8 @@ class StateSuite extends FunSuite {
 
     val machine: Machine = new Machine(true, 10, 0)    //Machine(locked: Boolean, candies: Int, coins: Int)
     val inputs: List[Input] = List(Coin, Turn)
-
-    val machineState: State[Machine, (Int, Int)] = Candy.simulateMachine(inputs)
-    val result = machineState.run(machine)
+    val simulator: State[Machine, (Int, Int)] = Candy.simulateMachine(inputs)
+    val result = simulator.run(machine)
     println("result: " + result)
   }
 }
