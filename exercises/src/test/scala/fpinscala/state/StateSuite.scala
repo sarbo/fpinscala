@@ -154,12 +154,14 @@ class StateSuite extends FunSuite {
   }
 
 
-  test (" Candy.simulateMachine(inputs: List[Input]): State[Machine, (Int, Int)]"){
+  test (" Candy.simulateMachineState(inputs: List[Input]): State[MachineState, (Int, Int)]"){
 
-    val machine: Machine = new Machine(true, 10, 0)    //Machine(locked: Boolean, candies: Int, coins: Int)
-    val inputs: List[Input] = List(Coin, Turn)
-    val simulator: State[Machine, (Int, Int)] = Candy.simulateMachine(inputs)
-    val result = simulator.run(machine)
+
+    val inputs: List[Input] = List(Coin, Turn, Coin, Turn)
+    val simulator: State[MachineState, (Int, Int)] = Candy.simulateMachine(inputs)
+
+    val machineState: MachineState = new MachineState(true, 10, 0)    // The initial state: MachineState(locked: Boolean, candies: Int, coins: Int)
+    val result = simulator.run(machineState)
     println("result: " + result)
   }
 }
